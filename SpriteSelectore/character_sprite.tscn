@@ -91,9 +91,28 @@ offset_bottom = 297.0
 text = "randomize
 "
 
+[node name="load files" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 312.0
+offset_right = 172.0
+offset_bottom = 351.0
+text = "Load files"
+
+[node name="generate sprite" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 365.0
+offset_right = 173.0
+offset_bottom = 400.0
+text = "generate
+"
+
 [connection signal="button_up" from="Control/NextButton" to="LoadSprite" method="_on_next_button_button_down"]
 [connection signal="button_up" from="Control/GridContainer/BodyButton" to="LoadSprite" method="_on_body_button_button_down"]
 [connection signal="button_up" from="Control/GridContainer/OutfitButton" to="LoadSprite" method="_on_eyes_button_button_up"]
 [connection signal="button_up" from="Control/GridContainer/HairButton" to="LoadSprite" method="_on_hair_button_button_up"]
 [connection signal="button_up" from="Control/GridContainer/EyesButton" to="LoadSprite" method="_on_outfit_button_button_down"]
 [connection signal="button_up" from="Control/randomize" to="LoadSprite" method="_on_randomize_button_up"]
+[connection signal="button_down" from="Control/load files" to="LoadSprite" method="_on_button_button_down"]
+[connection signal="button_up" from="Control/generate sprite" to="LoadSprite" method="_on_generate_sprite_button_up"]

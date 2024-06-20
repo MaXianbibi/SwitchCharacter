@@ -109,7 +109,7 @@ func add_sprite_sheet(sprite_sheet : AnimatedSprite2D, texture : Texture2D):
 			
 	sprite_sheet.set_sprite_frames(frames)
 
-	sprite_sheet.play("idle_down")
+	sprite_sheet.play("run_right")
 
 func load_sprite_dir(sprite_ressource : Dictionary):
 	if not sprite_ressource.path:
@@ -156,9 +156,7 @@ func look_for_dir(folder_path : String) -> error:
 
 
 func _ready():
-	if (load_sprite() == error.ERR):
-		return
-	generate_sprites()
+	pass
 	
 
 
@@ -222,3 +220,12 @@ func randomCharacter(characterToRandomize : Character):
 
 func _on_randomize_button_up():
 	randomCharacter(character)
+
+
+func _on_button_button_down():
+	if (load_sprite() == error.ERR):
+		return
+	
+	
+func _on_generate_sprite_button_up():
+	generate_sprites()
