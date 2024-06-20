@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmkj347t7d1sw"]
+
+[ext_resource type="Script" path="res://SpriteSelectore/LoadSprite.gd" id="1_w5hrr"]
+
+[node name="LoadSprite" type="Node"]
+script = ExtResource("1_w5hrr")
+sprite_folder = "res://sprite/"

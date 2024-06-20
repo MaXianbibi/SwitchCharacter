@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfkrw6fidqe2h"]
+
+[ext_resource type="Script" path="res://SpriteSelectore/character.gd" id="1_ru03u"]
+
+[node name="Character" type="Node2D"]
+position = Vector2(557, 336)
+script = ExtResource("1_ru03u")
+metadata/_edit_group_ = true
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+
+[node name="Eyes" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+
+[node name="Hair" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+
+[node name="Outfits" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)

@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3 uid="uid://b651cd0iautn3"]
+
+[ext_resource type="PackedScene" uid="uid://cfkrw6fidqe2h" path="res://SpriteSelectore/character.tscn" id="1_fb2fj"]
+[ext_resource type="PackedScene" uid="uid://bmkj347t7d1sw" path="res://load_sprite.tscn" id="2_jibeu"]
+
+[node name="CharacterSprite" type="Node2D"]
+texture_filter = 1
+
+[node name="Character" parent="." instance=ExtResource("1_fb2fj")]
+
+[node name="LoadSprite" parent="." node_paths=PackedStringArray("character", "sprite_name_label") instance=ExtResource("2_jibeu")]
+character = NodePath("../Character")
+sprite_name_label = NodePath("../Control/SpriteNames")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 650.0
+metadata/_edit_lock_ = true
+
+[node name="Loading" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 424.0
+offset_right = 1154.0
+offset_bottom = 447.0
+text = "Loading sprites..."
+horizontal_alignment = 1
+
+[node name="SpriteNames" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 449.0
+offset_right = 1156.0
+offset_bottom = 472.0
+text = "0x0"
+horizontal_alignment = 1
+
+[node name="NextButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 686.0
+offset_top = 352.0
+offset_right = 709.0
+offset_bottom = 383.0
+text = "->"
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 86.0
+offset_right = 1148.0
+offset_bottom = 181.0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 50
+columns = 4
+metadata/_edit_group_ = true
+
+[node name="BodyButton" type="Button" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Body
+"
+
+[node name="OutfitButton" type="Button" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Outfits
+"
+
+[node name="HairButton" type="Button" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Hair"
+
+[node name="EyesButton" type="Button" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Eyes"
+
+[node name="randomize" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 211.0
+offset_right = 170.0
+offset_bottom = 297.0
+text = "randomize
+"
+
+[connection signal="button_up" from="Control/NextButton" to="LoadSprite" method="_on_next_button_button_down"]
+[connection signal="button_up" from="Control/GridContainer/BodyButton" to="LoadSprite" method="_on_body_button_button_down"]
+[connection signal="button_up" from="Control/GridContainer/OutfitButton" to="LoadSprite" method="_on_eyes_button_button_up"]
+[connection signal="button_up" from="Control/GridContainer/HairButton" to="LoadSprite" method="_on_hair_button_button_up"]
+[connection signal="button_up" from="Control/GridContainer/EyesButton" to="LoadSprite" method="_on_outfit_button_button_down"]
+[connection signal="button_up" from="Control/randomize" to="LoadSprite" method="_on_randomize_button_up"]
