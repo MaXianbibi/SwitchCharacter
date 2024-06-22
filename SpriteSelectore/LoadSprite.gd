@@ -1,4 +1,6 @@
 extends Node
+class_name LoadingSprite
+
 
 const FRAME_WIDTH = 16
 const FRAME_HEIGHT = 32
@@ -57,12 +59,13 @@ enum error {
 }
 
 @export var character : Character = null
-
-@onready var body_animated_sprite : AnimatedSprite2D = character.body
-@onready var eyes_animated_sprite : AnimatedSprite2D = character.eyes
-@onready var hair_animated_sprite : AnimatedSprite2D = character.hair
-@onready var outfits_animated_sprite : AnimatedSprite2D = character.outfits
 @export var sprite_folder : String = "./"
+
+
+var is_loaded : bool = false
+
+
+var is_init : bool = false
 
 func create_sprite_entry(path: String, array: Array, index : int, NodeAnimated : AnimatedSprite2D) -> Dictionary:
 	return {
@@ -72,13 +75,7 @@ func create_sprite_entry(path: String, array: Array, index : int, NodeAnimated :
 		"Node" : NodeAnimated
 	}
 
-@onready var sprites_dict : Dictionary = {
-	"body" : create_sprite_entry("", [], 0, body_animated_sprite),
-	"eyes" : create_sprite_entry("", [], 0, eyes_animated_sprite),
-	"hair" : create_sprite_entry("", [], 0, hair_animated_sprite),
-	"outfits" : create_sprite_entry("", [], 0, outfits_animated_sprite)	
-}
-
+var sprites_dict : Dictionary = {}
 @export var sprite_name_label : Label = null
 
 var selected_key : String = "body"
@@ -95,7 +92,6 @@ func delete_sprite_sheet(sprite_sheet: AnimatedSprite2D):
 func add_sprite_sheet(sprite_sheet : AnimatedSprite2D, texture : Texture2D):
 	delete_sprite_sheet(sprite_sheet)
 	var frames : SpriteFrames = SpriteFrames.new()
-	#
 	for key in sprite_data.keys():
 		frames.add_animation(key)
 		for i in range(sprite_data[key]["n"]):
@@ -104,11 +100,7 @@ func add_sprite_sheet(sprite_sheet : AnimatedSprite2D, texture : Texture2D):
 			_atlas.filter_clip = true
 			_atlas.region = Rect2(16 * i + sprite_data[key]["x"] , sprite_data[key]["y"], 16, 32)
 			frames.add_frame(key, _atlas)
-			
-
-			
 	sprite_sheet.set_sprite_frames(frames)
-
 	sprite_sheet.play("run_right")
 
 func load_sprite_dir(sprite_ressource : Dictionary):
@@ -121,7 +113,9 @@ func load_sprite_dir(sprite_ressource : Dictionary):
 			var file_name = dir.get_next()
 			while file_name != "":
 				if not file_name.ends_with(".import"):
-					sprite_name_label.text = file_name
+					
+					if sprite_name_label:
+						sprite_name_label.text = file_name
 					if dir.current_is_dir():
 						print("Found directory: " + file_name)
 					else:
@@ -155,16 +149,45 @@ func look_for_dir(folder_path : String) -> error:
 
 
 
+func generate_new_character() -> Character:
+	character = Character.new()
+	
+	if not is_init:
+		sprites_dict = {
+			"body" : create_sprite_entry("", [], 0, character.body),
+			"eyes" : create_sprite_entry("", [], 0, character.eyes),
+			"hair" : create_sprite_entry("", [], 0, character.hair),
+			"outfits" : create_sprite_entry("", [], 0, character.outfits)	
+			}
+		is_init =  true
+	else:
+		sprites_dict.body.Node = character.body
+		sprites_dict.eyes.Node = character.eyes
+		sprites_dict.hair.Node = character.hair
+		sprites_dict.outfits.Node = character.outfits
+		
+		
+	return character
+	
 func _ready():
 	pass
 	
 
 
 func load_sprite() -> error:
+	if is_loaded:
+		return error.ERR
+	
+	if not is_init:
+		print("not init")
+		return error.ERR
+	
 	if (look_for_dir(sprite_folder) == error.ERR):
 		return error.ERR
 	for key in sprites_dict.values():
 		load_sprite_dir(key)
+		
+	is_loaded = true
 	return error.OK
 
 

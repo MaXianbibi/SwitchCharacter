@@ -47,9 +47,9 @@ text = "->"
 
 [node name="GridContainer" type="GridContainer" parent="Control"]
 layout_mode = 0
-offset_left = -1.0
+offset_left = 33.0
 offset_top = 86.0
-offset_right = 1148.0
+offset_right = 1116.0
 offset_bottom = 181.0
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 50

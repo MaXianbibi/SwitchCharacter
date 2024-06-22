@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://SpriteSelectore/character.gd" id="1_ru03u"]
 
-[node name="Character" type="Node2D"]
+[node name="Character" type="Node2D" groups=["entity_sprite"]]
 position = Vector2(557, 336)
 script = ExtResource("1_ru03u")
 metadata/_edit_group_ = true
